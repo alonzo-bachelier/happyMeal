@@ -1,0 +1,16 @@
+.section-recettes {
+    padding-top: 125px;
+    display: flex;
+    justify-content: space-around;
+}
+.nom-aleatoire-un {
+    font-size: 1em;
+}
+.img-recettes {
+    width: 20vw;
+    height: auto;
+}
+.recettes {
+    width: 20vw;
+    height: auto;
+}
