@@ -1,3 +1,8 @@
+.section-recettes {
+    padding-top: 125px;
+    display: flex;
+    justify-content: space-around;
+}
 .nom-aleatoire-un {
     font-size: 1em;
 }
@@ -8,7 +13,4 @@
 .recettes {
     width: 20vw;
     height: auto;
-}
-.section-recettes {
-    padding-top: 125px;
 }
