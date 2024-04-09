@@ -43,9 +43,7 @@ link.addEventListener('click', function(event) {
     event.preventDefault(); // Empêcher le comportement par défaut du lien
     champRecherche.value = suggestion.nom;
     autocompleteContainer.innerHTML = '';
-    // Ici, vous pouvez afficher la recette correspondante en fonction de suggestion.nom
-    // Vous pouvez soit afficher la recette directement dans cette fonction,
-    // soit rediriger l'utilisateur vers une page dédiée à la recette en utilisant l'URL correcte dans link.href
+ fetchRecetteParNom(suggestion.nom);
 });
 
 li.appendChild(link);
@@ -95,5 +93,46 @@ function afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredient
 
     autocompleteContainer.appendChild(ul);
 }
+
+
+
+// AFFICHER LA RECETTE EN CLIQUANT 
+function afficherDetailsRecette(recette) {
+    // Affichage des détails de la recette (par exemple, vous pouvez les afficher dans une modale)
+    console.log("Nom de la recette:", recette.nom);
+    console.log("Catégorie:", recette.categorie);
+    console.log("Temps de préparation:", recette.temps_preparation);
+    console.log("Ingrédients:", recette.ingredients);
+    console.log("Étapes:", recette.etapes);
+}
+function fetchRecetteParNom(nomRecette) {
+    fetch('../json/recettes.json')
+    .then(res => res.json())
+    .then(json => {
+        // Recherche de la recette correspondante
+        const recette = json.find(item => item.nom === nomRecette);
+        // Affichage des détails de la recette
+        if (recette) {
+            afficherDetailsRecette(recette);
+        } else {
+            console.log("Aucune recette trouvée pour le nom:", nomRecette);
+        }
+    })
+    .catch(error => console.error("Erreur lors du chargement des données:", error));
+}
+
+// Fonction pour gérer le clic sur un lien de suggestion
+function handleClickSuggestion(event, nomRecette) {
+    event.preventDefault(); // Empêcher le comportement par défaut du lien
+    fetchRecetteParNom(nomRecette);
+}
+
+
+
+
+
+
+
+
 
 getData();
