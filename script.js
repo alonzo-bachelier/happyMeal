@@ -10,6 +10,9 @@ function afficherecette() {
         recetteElement.classList.add("recette");
 
         const contenuRecette = `
+                    <img src="${
+                      recette.images
+                    }" style="width:200px; heigth:auto;">
                     <h2>${recette.nom}</h2>
                     <p>Catégorie : ${recette.categorie}</p>
                     <p>Temps de préparation : ${recette.temps_preparation}</p>
