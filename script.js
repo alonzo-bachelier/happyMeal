@@ -11,9 +11,9 @@ function getData() {
        
     });
 }
-
+    
+const champRecherche = document.getElementById ('chercheInput1');
 function saisieUtilisateurs() {
-    const champRecherche = document.getElementById ('chercheInput1');
     champRecherche.addEventListener('input', function(event) {
         const saisieUtilisateur = event.target.value;
         const suggestions = jsonData.recettes.filter
@@ -26,41 +26,54 @@ function saisieUtilisateurs() {
 function afficherSuggestions(suggestions) {
     // Sélection de l'élément où afficher les suggestions
     const autocompleteContainer = document.getElementById('autocompleteContainer1');
-    // Vide le conteneur des suggestions précédentes
     autocompleteContainer.innerHTML = '';
  
-    // Création d'une liste déroulante (ul) pour afficher les suggestions
+    // creation liste UL
     const ul = document.createElement('ul');
     suggestions.forEach(suggestion => {
         // Création d'un élément de liste (li) pour chaque suggestion
         const li = document.createElement('li');
-        li.textContent = suggestion.nom; // Remplir l'élément de liste avec le nom de la suggestion
-        // Ajout d'un écouteur d'événements pour gérer la sélection de la suggestion
-        li.addEventListener('click', function() {
-            // Remplir automatiquement la barre de recherche avec le texte de la suggestion sélectionnée
-            champRecherche.value = suggestion.nom;
-            autocompleteContainer.innerHTML = '';
-        });
-        // Ajout de l'élément de liste à la liste déroulante
-        ul.appendChild(li);
-    });
-    // Ajout de la liste déroulante au conteneur des suggestions
-    autocompleteContainer.appendChild(ul);
-}
+// Création d'un lien (a) pour chaque suggestion
+const link = document.createElement('a');
+link.href = "#"; 
+link.textContent = suggestion.nom; 
 
+// evénements pour le clic du lien
+link.addEventListener('click', function(event) {
+    event.preventDefault(); // Empêcher le comportement par défaut du lien
+    champRecherche.value = suggestion.nom;
+    autocompleteContainer.innerHTML = '';
+    // Ici, vous pouvez afficher la recette correspondante en fonction de suggestion.nom
+    // Vous pouvez soit afficher la recette directement dans cette fonction,
+    // soit rediriger l'utilisateur vers une page dédiée à la recette en utilisant l'URL correcte dans link.href
+});
+
+li.appendChild(link);
+ul.appendChild(li);
+});
+autocompleteContainer.appendChild(ul);
+}
 //INGREDIENTS ------
+    const champRechercheIngredients = document.getElementById('chercheInput2');
 
 function saisieUtilisateursIngredients() {
-    const champRechercheIngredients = document.getElementById ('chercheInput2');
-    champRechercheIngredients.addEventListener ('input', function(event) {
+    champRechercheIngredients.addEventListener('input', function(event) {
         const saisieUtilisateur = event.target.value;
-        const suggestionsIngredients = jsonData.recettes.flatMap(
-            item => item.ingredients.filter(
-                ingredient => ingredient.nom && ingredient.nom.toLowerCase().includes(saisieUtilisateur.toLowerCase())
-            )
-        );    
-    afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredients);
-});
+        const suggestionsIngredients = [];
+        jsonData.recettes.forEach(item => {
+            item.ingredients.forEach(ingredient => {
+                if (ingredient.nom && ingredient.nom.toLowerCase().includes(saisieUtilisateur.toLowerCase())) {
+                    const ingredientExisteDeja = suggestionsIngredients.find(
+                        suggestion => suggestion.nom === ingredient.nom
+                    );
+                    if (!ingredientExisteDeja) {
+                        suggestionsIngredients.push(ingredient);
+                    }
+                }
+            });
+        });
+        afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredients);
+    });
 }
 
 function afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredients) {
@@ -73,7 +86,7 @@ function afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredient
         li.textContent = suggestion.nom;
 
         li.addEventListener('click', function() {
-            champRecherche.value = suggestion;
+            champRechercheIngredients.value = suggestion;
             autocompleteContainer.innerHTML = '';
         });
 
