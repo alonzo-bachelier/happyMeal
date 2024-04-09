@@ -1,7 +1,21 @@
+.titre {
+    font-family: "Karla";
+    text-align: center;
+    padding-top: 80px;
+}
+.titre-btn {
+    text-align: center;
+}
+#recharger:hover {
+    cursor: pointer;
+}
+.para-ingredient {
+    font-size: 0.8em;
+}
 .section-recettes {
-    padding-top: 125px;
     display: flex;
     justify-content: space-around;
+    padding-top: 15px;
 }
 .nom-aleatoire-un {
     font-size: 1em;
@@ -13,4 +27,14 @@
 .recettes {
     width: 20vw;
     height: auto;
+}
+.bouton-fermer-ouvrir {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.bouton-favoris {
+    position: absolute;
+    right: 20px;
+    bottom: 50px;
 }
