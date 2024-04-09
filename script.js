@@ -1,15 +1,16 @@
-function afficherecette() {
+function afficherRecettes() {
   fetch("../json/data.json")
     .then((response) => response.json())
     .then((data) => {
       const recettes = data.recettes; // Accéder à la liste des recettes
       const sectionRecettes = document.querySelector(".repas");
 
-      recettes.forEach((recette) => {
-        const recetteElement = document.createElement("div");
-        recetteElement.classList.add("recette");
+      recettes.forEach((recette, index) => {
+        if (index < 5) {
+          const recetteElement = document.createElement("div");
+          recetteElement.classList.add("recette");
 
-        const contenuRecette = `
+          const contenuRecette = `
                     <img src="${
                       recette.images
                     }" style="width:200px; heigth:auto;">
@@ -33,8 +34,9 @@ function afficherecette() {
                     </ol>
                 `;
 
-        recetteElement.innerHTML = contenuRecette;
-        sectionRecettes.appendChild(recetteElement);
+          recetteElement.innerHTML = contenuRecette;
+          sectionRecettes.appendChild(recetteElement);
+        }
       });
     })
     .catch((error) =>
@@ -42,4 +44,4 @@ function afficherecette() {
     );
 }
 
-document.addEventListener("DOMContentLoaded", afficherecette);
+document.addEventListener("DOMContentLoaded", afficherRecettes);
