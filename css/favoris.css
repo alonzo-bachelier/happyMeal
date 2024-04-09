@@ -1,0 +1,12 @@
+* {
+    font-family: "karla";
+}
+.favoris {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+.bouton {
+}

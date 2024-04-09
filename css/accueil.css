@@ -35,6 +35,13 @@
 }
 .bouton-favoris {
     position: absolute;
+    z-index: 1;
     right: 20px;
-    bottom: 50px;
+    top: 20px;
+    border: none;
+    background: transparent;
+}
+.bouton-favoris:focus {
+    background: none;
+    background-color: transparent;
 }
