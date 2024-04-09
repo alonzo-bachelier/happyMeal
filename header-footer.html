@@ -7,6 +7,7 @@
     <title>HappyMeal</title>
 </head>
 <body>
+  <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
 
@@ -30,12 +31,18 @@
                 </ul>
 
              <form class="d-flex" role="search">
-                  <input id="chercheInput" class="form-control me-2" type="search" placeholder="Cherchez une recette" aria-label="Search">
-                  <div id="autocompleteContainer" class="autocomplete"></div> <!-- Conteneur pour les suggestions -->
+                  <input id="chercheInput1" class="form-control me-2" type="search" placeholder="Cherchez une recette" aria-label="Search" autocomplete="off">
                   <button class="btn btn-outline-success" type="submit">Recherche</button>
              </form>  
+                  <div id="autocompleteContainer1" class="autocomplete"></div> <!-- Conteneur suggestions par lettres-->
 
-      <div id="autocompleteContainer"></div>    
+             <form class="d-flex" role="search">
+                  <input id="chercheInput2" class="form-control me-2" type="search" placeholder="Cherchez par ingrédients" aria-label="Search" autocomplete="off">
+                  <button class="btn btn-outline-success" type="submit">Recherche</button>
+            </form>  
+                  <div id="autocompleteContainer2" class="autocomplete"></div> <!-- Conteneur suggestions par ingrédient-->
+
+             
 
               </div>
             </div>
@@ -47,9 +54,7 @@
 
 <footer class=" text-center text-white fixed-bottom" style="background-color:#a4bfa1;">
     <section class="mb-4">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </p>
+      <p>  Reprenez plaisir à cuisiner ! </p>
     </section>
 
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
@@ -74,9 +79,8 @@
 
   </div>
 
-  <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-    © 2020 Copyright:LaPlateforme_  
+    © 2024 Copyright:LaPlateforme_  
   </div>
 
 </footer>
