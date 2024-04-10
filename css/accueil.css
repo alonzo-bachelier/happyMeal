@@ -1,7 +1,6 @@
 .titre {
     font-family: "Karla";
     text-align: center;
-    padding-top: 80px;
 }
 .titre-btn {
     text-align: center;
@@ -12,6 +11,32 @@
 .para-ingredient {
     font-size: 0.8em;
 }
+#duree1,
+#duree2,
+#duree3 {
+    font-size: 0.8em;
+}
+#etapes1,
+#etapes2,
+#etapes3 {
+    font-size: 0.8em;
+}
+.card {
+    max-height: 450px;
+}
+.card.revealed {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+    height: auto; /* Permet à la hauteur de s'ajuster au contenu */
+    max-height: none; /* Enlève une max-height si définie */
+}
+
+.container.section-recettes {
+    position: relative; /* Nécessaire pour positionner correctement les cartes absolues */
+}
+
 .section-recettes {
     display: flex;
     justify-content: space-around;
@@ -21,8 +46,10 @@
     font-size: 1em;
 }
 .img-recettes {
-    width: 20vw;
+    width: 25vw;
     height: auto;
+    max-height: fit-content;
+    pointer-events: none;
 }
 .recettes {
     width: 20vw;

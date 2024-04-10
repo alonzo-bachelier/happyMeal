@@ -42,6 +42,7 @@
             crossorigin="anonymous"
         ></script>
         <script defer src="javascript/accueil.js"></script>
+        <script defer src="javascript/favoris.js"></script>
     </head>
     <body>
         <header></header>
@@ -61,13 +62,13 @@
                             id="img-recette1"
                         ></div>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content card1">
                         <span
                             class="card-title activator grey-text text-darken-4"
                         >
                             <p class="nom-aleatoire-un">Card Title</p>
                             <i
-                                class="small material-icons right bouton-fermer-ouvrir"
+                                class="small material-icons right bouton-fermer-ouvrir btn1"
                                 >keyboard_arrow_up</i
                             ></span
                         >
@@ -90,6 +91,8 @@
                                 id="ingredients-un"
                                 class="para-ingredient"
                             ></div>
+                            <div id="etapes1"></div>
+                            <div id="duree1"></div>
                             <div>
                                 <i
                                     class="small material-icons right bouton-fermer-ouvrir"
@@ -113,7 +116,8 @@
                             class="card-title activator grey-text text-darken-4"
                         >
                             <p class="nom-aleatoire-deux">Card Title</p>
-                            <i class="small material-icons right"
+                            <i
+                                class="small material-icons right bouton-fermer-ouvrir"
                                 >keyboard_arrow_up</i
                             ></span
                         >
@@ -136,6 +140,8 @@
                                 id="ingredients-deux"
                                 class="para-ingredient"
                             ></div>
+                            <div id="etapes2"></div>
+                            <div id="duree2"></div>
                             <i
                                 class="small material-icons right bouton-fermer-ouvrir"
                                 >close</i
@@ -181,14 +187,18 @@
                                 id="ingredients-trois"
                                 class="para-ingredient"
                             ></div>
+                            <div id="etapes3"></div>
+                            <div id="duree3"></div>
                             <i
                                 class="small material-icons right bouton-fermer-ouvrir"
                                 >close</i
                             ></span
-                        >
+                        ><link rel="stylesheet" href="" />
                     </div>
                 </div>
             </section>
+            <button id="afficherFavoris">Afficher les favs</button>
+            <div id="listefav"></div>
         </main>
         <footer></footer>
     </body>

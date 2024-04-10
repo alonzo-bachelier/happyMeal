@@ -29,9 +29,18 @@ $(document).ready(function () {
                         );
                     }
                 });
+
                 $("#img-recette1").html(
                     `<img src="${recettesAleatoires[0].images}" class="activator img-recettes" style="width: 100%;">`
                 );
+                $("#duree1")
+                    .empty()
+                    .append(
+                        `<p>Temps de préparation: ${recettesAleatoires[0].temps_preparation}</p>`
+                    );
+                $("#etapes1")
+                    .empty()
+                    .append(`<p>Etapes: ${recettesAleatoires[0].etapes}</p>`);
 
                 $(".nom-aleatoire-deux").text(recettesAleatoires[1].nom);
                 $("#ingredients-deux").empty();
@@ -47,6 +56,14 @@ $(document).ready(function () {
                 $("#img-recette2").html(
                     `<img src="${recettesAleatoires[1].images}" class="activator img-recettes" style="width: 100%;">`
                 );
+                $("#etapes2")
+                    .empty()
+                    .append(`<p>Etapes: ${recettesAleatoires[1].etapes}</p>`);
+                $("#duree2")
+                    .empty()
+                    .append(
+                        `<p>Temps de préparation: ${recettesAleatoires[1].temps_preparation}</p>`
+                    );
 
                 $(".nom-aleatoire-trois").text(recettesAleatoires[2].nom);
                 $("#ingredients-trois").empty();
@@ -65,6 +82,14 @@ $(document).ready(function () {
                 $("#img-recette3").html(
                     `<img src="${recettesAleatoires[2].images}" class="activator img-recettes" style="width: 100%;">`
                 );
+                $("#etapes3")
+                    .empty()
+                    .append(`<p>Etapes: ${recettesAleatoires[2].etapes}</p>`);
+                $("#duree3")
+                    .empty()
+                    .append(
+                        `<p>Temps de préparation: ${recettesAleatoires[2].temps_preparation}</p>`
+                    );
             })
             .catch(error =>
                 console.error(
@@ -105,6 +130,16 @@ $(document).ready(function () {
             $("#logo-fav3").text("delete_forever");
         } else {
             $("#logo-fav3").text("favorite_border");
+        }
+    });
+    $("body").on("click", ".bouton-fermer-ouvrir", function () {
+        let card = $(this).closest(".card");
+
+        if (card.hasClass("revealed")) {
+            card.removeClass("revealed");
+        } else {
+            $(".card").removeClass("revealed");
+            card.addClass("revealed");
         }
     });
 });
