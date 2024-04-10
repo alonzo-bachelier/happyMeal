@@ -1,103 +1,269 @@
-let recette = [
-  "Poulet rôti aux herbes",
-  "Salade de quinoa aux légumes grillés",
-  "Tarte aux pommes",
-  "Soupe de lentilles",
-  "Pâtes Carbonara",
-  "Salade de fruits frais",
-  "Ratatouille provençale",
-  "Salade César",
-  "Risotto aux champignons",
-  "Muffins aux myrtilles",
-  "Lasagnes végétariennes",
-  "Salade niçoise",
-  "Tiramisu",
-];
-
-function afficherRecettes(page) {
+// Chargement des recettes au chargement de la page 2
+document.addEventListener("DOMContentLoaded", () => {
   fetch("../json/data.json")
     .then((response) => response.json())
     .then((data) => {
-      const recettes = data.recettes; // Accéder à la liste des recettes
-      const sectionRecettes = document.querySelector(".repas");
-
-      recettes.forEach((recette, index) => {
-        if (index < 5) {
-          const recetteElement = document.createElement("div");
-          recetteElement.classList.add("recette");
-
-          const contenuRecette = `
-                    <img src="${
-                      recette.images
-                    }" style="width:200px; heigth:auto;">
-                    <h2>${recette.nom}</h2>
-                    <p>Catégorie : ${recette.categorie}</p>
-                    <p>Temps de préparation : ${recette.temps_preparation}</p>
-                    <h3>Ingrédients :</h3>
-                    <ul>
-                        ${recette.ingredients
-                          .map(
-                            (ingredient) =>
-                              `<li>${ingredient.nom} : ${ingredient.quantite}</li>`
-                          )
-                          .join("")}
-                    </ul>
-                    <h3>Étapes :</h3>
-                    <ol>
-                        ${recette.etapes
-                          .map((etape) => `<li>${etape}</li>`)
-                          .join("")}
-                    </ol>
-                `;
-
-          recetteElement.innerHTML = contenuRecette;
-          sectionRecettes.appendChild(recetteElement);
-        }
-      });
+      recettes = data.recettes; // Stockage des recettes dans la variable globale
+      const totalRecettes = recettes.length;
+      const totalPages = Math.ceil(totalRecettes / recettesParPage);
+      currentPage = Math.min(currentPage, totalPages);
+      if (window.location.href === "affiche2.html") {
+        afficherRecettes2(currentPage); // Afficher les recettes de la deuxième page
+      } else {
+        afficherRecettes1(currentPage); // Par défaut, afficher les recettes de la première page
+      }
     })
     .catch((error) =>
       console.error("Erreur lors de la récupération des recettes :", error)
     );
+});
+
+// Fonction pour afficher les recettes en fonction de la page actuelle pour la page 2
+function afficherRecettes2(page) {
+  const sectionRecettes = document.getElementsByClassName(".repas2");
+  sectionRecettes.innerHTML = ""; // Clear la section des recettes
+
+  const startIdx = (page - 1) * recettesParPage;
+  const endIdx = Math.min(startIdx + recettesParPage, recettes.length);
+
+  for (let index = startIdx; index < endIdx; index++) {
+    const recette = recettes[index];
+    const recetteElement = document.createElement("div");
+    recetteElement.classList.add("recette");
+
+    const contenuRecette = `
+      <img src="${recette.images}" style="width:200px; height:auto;">
+      <h2>${recette.nom}</h2>
+      <p>Catégorie : ${recette.categorie}</p>
+      <p>Temps de préparation : ${recette.temps_preparation}</p>
+      <h3>Ingrédients :</h3>
+      <ul>
+        ${recette.ingredients
+          .map(
+            (ingredient) =>
+              `<li>${ingredient.nom} : ${ingredient.quantite}</li>`
+          )
+          .join("")}
+      </ul>
+      <h3>Étapes :</h3>
+      <ol>
+        ${recette.etapes.map((etape) => `<li>${etape}</li>`).join("")}
+      </ol>
+    `;
+
+    recetteElement.innerHTML = contenuRecette;
+    sectionRecettes.appendChild(recetteElement);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", afficherRecettes);
+let recettes = []; // Variable globale pour stocker toutes les recettes
+let currentPage = 1; // Page actuelle
+const recettesParPage = 5; // Nombre de recettes par page
 
-function afficherRecettes() {}
-const startIdx = (page - 1) * 5;
-const endIdx = startIdx + 5;
+// Fonction pour afficher les recettes en fonction de la page actuelle
+function afficherRecettes1(page) {
+  const sectionRecettes = document.querySelector(".repas1");
+  sectionRecettes.innerHTML = ""; // Clear la section des recettes
 
-const sectionRecettes = document.querySelector(".repas");
-sectionRecettes.innerHTML = ""; // Clear la section des recettes
-for (let index = startIdx; index < endIdx && index < recette.length; index++)
-  function changerPage(page) {
-    currentPage = page;
-    afficherRecettes(currentPage);
+  const startIdx = (page - 1) * recettesParPage;
+  const endIdx = Math.min(startIdx + recettesParPage, recettes.length);
+
+  for (let index = startIdx; index < endIdx; index++) {
+    const recette = recettes[index];
+    const recetteElement = document.createElement("div");
+    recetteElement.classList.add("recette");
+
+    const contenuRecette = `
+      <img src="${recette.images}" style="width:200px; height:auto;">
+      <h2>${recette.nom}</h2>
+      <p>Catégorie : ${recette.categorie}</p>
+      <p>Temps de préparation : ${recette.temps_preparation}</p>
+      <h3>Ingrédients :</h3>
+      <ul>
+        ${recette.ingredients
+          .map(
+            (ingredient) =>
+              `<li>${ingredient.nom} : ${ingredient.quantite}</li>`
+          )
+          .join("")}
+      </ul>
+      <h3>Étapes :</h3>
+      <ol>
+        ${recette.etapes.map((etape) => `<li>${etape}</li>`).join("")}
+      </ol>
+    `;
+
+    recetteElement.innerHTML = contenuRecette;
+    sectionRecettes.appendChild(recetteElement);
   }
+}
 
-document.getElementById("precedent").addEventListener("click", () => {
+// Fonction pour afficher les recettes en fonction de la page actuelle
+function afficherRecettes3(page3) {
+  const sectionRecettes = document.querySelector(".repas3");
+  sectionRecettes.innerHTML = ""; // Clear la section des recettes
+
+  const startIdx = (page3 - 1) * recettesParPage;
+  const endIdx = Math.min(startIdx + recettesParPage, recettes.length);
+
+  for (let index = startIdx; index < endIdx; index++) {
+    const recette = recettes[index];
+    const recetteElement = document.createElement("div");
+    recetteElement.classList.add("recette");
+
+    const contenuRecette = `
+      <img src="${recette.images}" style="width:200px; height:auto;">
+      <h2>${recette.nom}</h2>
+      <p>Catégorie : ${recette.categorie}</p>
+      <p>Temps de préparation : ${recette.temps_preparation}</p>
+      <h3>Ingrédients :</h3>
+      <ul>
+        ${recette.ingredients
+          .map(
+            (ingredient) =>
+              `<li>${ingredient.nom} : ${ingredient.quantite}</li>`
+          )
+          .join("")}
+      </ul>
+      <h3>Étapes :</h3>
+      <ol>
+        ${recette.etapes.map((etape) => `<li>${etape}</li>`).join("")}
+      </ol>
+    `;
+
+    recetteElement.innerHTML = contenuRecette;
+    sectionRecettes.appendChild(recetteElement);
+  }
+}
+
+// Fonction pour changer de page
+function changerPage(page) {
+  currentPage = page;
+  afficherRecettes1(currentPage);
+}
+
+// Gestion des événements pour la pagination
+document.getElementById("btn_prev").addEventListener("click", () => {
   if (currentPage > 1) {
-    changerPage(currentPage - 1);
+    currentPage--;
+    changerPage(currentPage);
   }
 });
-
-document.getElementById("suivant").addEventListener("click", () => {
+document.getElementById("btn_next").addEventListener("click", () => {
   if (currentPage < 3) {
-    changerPage(currentPage + 1);
+    currentPage++;
+    changerPage(currentPage); // Met à jour la page actuelle
+    if (window.location.href === "affiche2.html") {
+      afficherRecettes2(currentPage); // Affiche les 5 recettes suivantes sur la page 2
+    } else if (window.location.href === "affiche3.html") {
+      afficherRecettes3(currentPage); // Affiche les 5 recettes suivantes sur la page 3
+    }
   }
 });
 
-document.getElementById("1").addEventListener("click", () => {
-  changerPage(1);
+document.getElementById("btn_next").addEventListener("click", () => {
+  if (currentPage < 3) {
+    currentPage++;
+    changerPage(currentPage);
+  }
 });
 
-document.getElementById("2").addEventListener("click", () => {
-  changerPage(2);
-});
-
-document.getElementById("3").addEventListener("click", () => {
-  changerPage(3);
-});
-
+// Chargement des recettes au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
-  afficherRecettes(currentPage);
+  fetch("../json/data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      recettes = data.recettes; // Stockage des recettes dans la variable globale
+      afficherRecettes1(currentPage); // Afficher les recettes de la première page
+    })
+    .catch((error) =>
+      console.error("Erreur lors de la récupération des recettes :", error)
+    );
+  if (window.location.href === "affiche2.html") {
+    afficherRecettes2(currentPage);
+  } else if (window.location.href === "affiche3.html") {
+    afficherRecettes3(currentPage);
+  } else {
+    console.log("erreur");
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("../json/data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const repas2 = document.querySelector(".repas2"); // Déplacer cette ligne en dehors de la boucle
+
+      let contenuRecettes = ""; // Créer une variable pour stocker le contenu de toutes les recettes
+
+      for (let i = 5; i <= 9; i++) {
+        const recette = data.recettes[i];
+        contenuRecettes += `
+          <div class="recette">
+            <img src="${recette.images}" style="width:200px; height:auto;">
+            <h2>${recette.nom}</h2>
+            <p>Catégorie : ${recette.categorie}</p>
+            <p>Temps de préparation : ${recette.temps_preparation}</p>
+            <h3>Ingrédients :</h3>
+            <ul class="ingredients">
+              ${recette.ingredients
+                .map(
+                  (ingredient) =>
+                    `<li>${
+                      typeof ingredient === "string"
+                        ? ingredient
+                        : `${ingredient.quantite} de ${ingredient.nom}`
+                    }</li>`
+                )
+                .join("")}
+            </ul>
+            <h3>Étapes :</h3>
+            <ol>
+              ${recette.etapes.map((etape) => `<li>${etape}</li>`).join("")}
+            </ol>
+          </div>
+        `;
+      }
+
+      repas2.innerHTML = contenuRecettes; // Affecter le contenu de toutes les recettes une seule fois
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("../json/data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const repas3 = document.querySelector(".repas3"); // Déplacer cette ligne en dehors de la boucle
+
+      let contenuRecettes = ""; // Créer une variable pour stocker le contenu de toutes les recettes
+
+      for (let i = 10; i <= 12; i++) {
+        const recette = data.recettes[i];
+        contenuRecettes += `
+          <div class="recette">
+            <img src="${recette.images}" style="width:200px; height:auto;">
+            <h2>${recette.nom}</h2>
+            <p>Catégorie : ${recette.categorie}</p>
+            <p>Temps de préparation : ${recette.temps_preparation}</p>
+            <h3>Ingrédients :</h3>
+            <ul class="ingredients">
+              ${recette.ingredients
+                .map(
+                  (ingredient) =>
+                    `<li>${
+                      typeof ingredient === "string"
+                        ? ingredient
+                        : `${ingredient.quantite} de ${ingredient.nom}`
+                    }</li>`
+                )
+                .join("")}
+            </ul>
+            <h3>Étapes :</h3>
+            <ol>
+              ${recette.etapes.map((etape) => `<li>${etape}</li>`).join("")}
+            </ol>
+          </div>
+        `;
+      }
+
+      repas3.innerHTML = contenuRecettes; // Affecter le contenu de toutes les recettes une seule fois
+    });
 });
