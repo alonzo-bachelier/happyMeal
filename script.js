@@ -1,7 +1,7 @@
 
 // Fonction: FETCH POUR RECUP JSON
 function getData() {
-    fetch('../json/data.json')
+    fetch('../../json/data.json')
     .then(res => res.json())
     .then(json => {
         jsonData = json; // Stockage des données dans la variable globale
@@ -102,11 +102,17 @@ function afficherDetailsRecette(recette) {
     console.log("Nom de la recette:", recette.nom);
     console.log("Catégorie:", recette.categorie);
     console.log("Temps de préparation:", recette.temps_preparation);
-    console.log("Ingrédients:", recette.ingredients);
-    console.log("Étapes:", recette.etapes);
+    console.log("Ingrédients:");
+    recette.ingredients.forEach(ingredient => {
+        console.log("- " + ingredient.nom + ": " + ingredient.quantite);
+    });
+    console.log("Étapes:");
+    recette.etapes.forEach((etape, index) => {
+        console.log((index + 1) + ". " + etape);
+    });
 }
 function fetchRecetteParNom(nomRecette) {
-    fetch('../json/recettes.json')
+    fetch('../json/data.json')
     .then(res => res.json())
     .then(json => {
         // Recherche de la recette correspondante

@@ -1,0 +1,11 @@
+.autocomplete {
+    position: absolute;
+    top: 100%; /* Position sous la barre de recherche */
+    z-index: 1000; /* Assure que les suggestions restent au-dessus du contenu */
+    width: 100%; /* Largeur correspondante à la barre de recherche */
+    background-color: #ededed;
+    border: 1px solid #ccc;
+    border: none; /* Supprime la bordure supérieure */
+    max-height: 250px; /* Hauteur maximale des suggestions pour éviter un débordement */
+    overflow-y: auto; /* Défilement vertical si nécessaire */
+}
