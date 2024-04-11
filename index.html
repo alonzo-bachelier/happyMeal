@@ -33,10 +33,6 @@
         ></script>
         <script
             defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-        ></script>
-        <script
-            defer
             src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"
@@ -50,11 +46,63 @@
             <img src="assets/background.jpg" alt="" class="background" />
             <section class="background-element">
                 <section id="sectionFav">
-                    <i class="medium material-icons" id="afficherFavoris"
+                    <i
+                        class="medium material-icons"
+                        id="afficherFavoris"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
                         >favorite</i
                     >
 
-                    <div id="listefav" class="cacherLaListe"></div>
+                    <!-- Modal -->
+                    <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1
+                                        class="modal-title fs-5"
+                                        id="exampleModalLabel"
+                                    >
+                                        ❤️ Recettes favorites ❤️
+                                    </h1>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div
+                                        id="listefav"
+                                        class="cacherLaListe"
+                                    ></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Close
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                    >
+                                        Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="titre-btn">

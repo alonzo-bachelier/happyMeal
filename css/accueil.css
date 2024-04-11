@@ -6,18 +6,13 @@
     /*Header favoris*/
     text-align: center;
 }
+#listeFav {
+    text-align: left;
+}
 #afficherFavoris {
     /*Header favoris*/
     cursor: pointer;
     font-size: 35px;
-}
-#listefav {
-    /*Header favoris*/
-    background-color: rgba(255, 127, 80, 0.395);
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
-    border-radius: 10px;
 }
 .x-btn-favList {
     /*Header favoris*/
@@ -25,9 +20,9 @@
     margin-right: 5px;
     float: right;
 }
-.cacherLaListe {
-    /*Header favoris*/
-    display: none;
+.modale-bouton {
+    background: none;
+    border: none;
 }
 
 .background {
@@ -75,12 +70,12 @@
     width: 100%;
     z-index: 100;
     transition: all 0.3s ease;
-    height: auto; /* Permet à la hauteur de s'ajuster au contenu */
-    max-height: none; /* Enlève une max-height si définie */
+    height: auto;
+    max-height: none;
 }
 
 .container.section-recettes {
-    position: relative; /* Nécessaire pour positionner correctement les cartes absolues */
+    position: relative;
 }
 
 .section-recettes {

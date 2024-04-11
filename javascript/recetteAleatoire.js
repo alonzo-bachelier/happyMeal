@@ -92,7 +92,7 @@ $(document).ready(function () {
                     .append(`<p>Etapes: ${recettesAleatoires[2].etapes}</p>`);
             })
             .then(() => {
-                siRecetteEnFavoris(); // Assurez-vous que siRecetteEnFavoris est accessible
+                siRecetteEnFavoris();
             })
             .catch(error =>
                 console.error(
