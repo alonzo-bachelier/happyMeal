@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initialView: "dayGridMonth",
     initialDate: "2024-04-07",
     selectable: true,
+    editable: true,
     headerToolbar: {
       left: "prev,next today",
       center: "title",
@@ -20,7 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   calendar.render();
 });
-var calendar = new FullCalendar.Calendar(calendarEl, {
-  // no plugin configuration required!
-  editable: true,
+
+const listefav = document.getElementById("listefav");
+const listeFavoris = localStorage.getItem("favoris");
+JSON.parse(listeFavoris).forEach((fav) => {
+  console.log(fav);
+  const p = document.createElement("p");
+  p.innerHTML = `${fav} <button id="supprFav">x</button> `;
+
+  listefav.append(p);
 });
+
+console.log(listeFavoris);
