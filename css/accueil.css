@@ -52,6 +52,17 @@
 .para-ingredient {
     font-size: 0.8em;
 }
+.nom-aleatoire-un,
+.nom-aleatoire-deux,
+.nom-aleatoire-trois {
+    font-size: 0.6em;
+}
+.texte-modal {
+    width: auto;
+    margin-left: auto;
+    padding-left: 60px;
+    margin-right: auto;
+}
 #duree1,
 #duree2,
 #duree3 {
@@ -82,9 +93,6 @@
     display: flex;
     justify-content: space-around;
     padding-top: 15px;
-}
-.nom-aleatoire-un {
-    font-size: 1em;
 }
 .img-recettes {
     width: 25vw;
