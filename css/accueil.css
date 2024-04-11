@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#sectionFav {
+    /*Header favoris*/
+    text-align: center;
+}
+#afficherFavoris {
+    /*Header favoris*/
+    cursor: pointer;
+    font-size: 35px;
+}
+#listefav {
+    /*Header favoris*/
+    background-color: rgba(255, 127, 80, 0.395);
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    border-radius: 10px;
+}
+.x-btn-favList {
+    /*Header favoris*/
+    margin-top: 5px;
+    margin-right: 5px;
+    float: right;
+}
+.cacherLaListe {
+    /*Header favoris*/
+    display: none;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    background-image: url("chemin/vers/votre/image.jpg");
+    background-size: cover;
+    filter: blur(3px) contrast(1.2) brightness(0.8);
+    z-index: -1;
+}
+.background-element {
+    background-color: rgba(255, 255, 255, 0.399);
+}
+.material-icons {
+    user-select: none;
+}
+.titre {
+    font-family: "Karla";
+    text-align: center;
+}
+.titre-btn {
+    text-align: center;
+}
+#recharger:hover {
+    cursor: pointer;
+}
+.para-ingredient {
+    font-size: 0.8em;
+}
+#duree1,
+#duree2,
+#duree3 {
+    font-size: 0.8em;
+}
+#etapes1,
+#etapes2,
+#etapes3 {
+    font-size: 0.8em;
+}
+.card {
+    max-height: 450px;
+}
+.card.revealed {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+    height: auto; /* Permet à la hauteur de s'ajuster au contenu */
+    max-height: none; /* Enlève une max-height si définie */
+}
+
+.container.section-recettes {
+    position: relative; /* Nécessaire pour positionner correctement les cartes absolues */
+}
+
+.section-recettes {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+}
+.nom-aleatoire-un {
+    font-size: 1em;
+}
+.img-recettes {
+    width: 25vw;
+    height: auto;
+    max-height: fit-content;
+    pointer-events: none;
+}
+.recettes {
+    width: 20vw;
+    height: auto;
+}
+.bouton-fermer-ouvrir {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.bouton-favoris {
+    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    border: none;
+    background: transparent;
+}
+.bouton-favoris:focus {
+    background: none;
+    background-color: transparent;
+}
