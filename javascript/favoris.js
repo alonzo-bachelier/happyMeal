@@ -1,31 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const boutonsFavoris = document.querySelectorAll(".bouton-favoris");
-    // Charger les favoris depuis le localStorage ou initialiser un tableau vide si rien n'est trouvé
-    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+    siRecetteEnFavoris();
 
-    boutonsFavoris.forEach(function (bouton) {
+    document.querySelectorAll(".bouton-favoris").forEach(function (bouton) {
         bouton.addEventListener("click", function () {
-            let card = this.closest(".card");
-            let nomRecettes = [
-                card.querySelector(".nom-aleatoire-un")?.textContent,
-                card.querySelector(".nom-aleatoire-deux")?.textContent,
-                card.querySelector(".nom-aleatoire-trois")?.textContent,
-            ].filter(Boolean); // Filtrer les valeurs non définies ou nulles
+            const card = this.closest(".card");
+            const nomRecette = card.querySelector(
+                ".nom-aleatoire-un, .nom-aleatoire-deux, .nom-aleatoire-trois"
+            ).textContent;
 
-            nomRecettes.forEach(nom => {
-                if (favoris.includes(nom)) {
-                    // Supprimer la recette des favoris si elle est déjà présente
-                    favoris = favoris.filter(favori => favori !== nom);
-                } else {
-                    // Ajouter la recette aux favoris si elle n'est pas déjà présente
-                    favoris = [...favoris, nom];
-                }
-            });
+            let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
 
-            // Mettre à jour le localStorage avec le nouvel état des favoris
+            if (favoris.includes(nomRecette)) {
+                favoris = favoris.filter(favori => favori !== nomRecette);
+            } else {
+                favoris.push(nomRecette);
+            }
+
             localStorage.setItem("favoris", JSON.stringify(favoris));
+            listefav.classList.add("cacherLaListe");
 
-            console.log(favoris);
+            siRecetteEnFavoris();
         });
     });
 
@@ -33,15 +27,59 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("afficherFavoris")
         .addEventListener("click", function () {
             const listefav = document.getElementById("listefav");
-            const listeFavoris = localStorage.getItem("favoris");
-            JSON.parse(listeFavoris).forEach(fav => {
-                console.log(fav);
-                const p = document.createElement("p");
-                p.innerHTML = `${fav} <button id="supprFav">x</button> `;
 
-                listefav.append(p);
-            });
+            if (listefav.classList.contains("cacherLaListe")) {
+                listefav.classList.remove("cacherLaListe");
 
-            console.log(listeFavoris);
+                listefav.innerHTML = "";
+                const listeFavoris =
+                    JSON.parse(localStorage.getItem("favoris")) || [];
+                listeFavoris.forEach(fav => {
+                    const ul = document.createElement("ul");
+                    ul.setAttribute("id", "ul-fav");
+                    ul.innerHTML = `<li><span>${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i></li>`;
+                    listefav.appendChild(ul);
+                });
+            } else {
+                listefav.classList.add("cacherLaListe");
+            }
+            siRecetteEnFavoris();
+        });
+
+    document
+        .getElementById("listefav")
+        .addEventListener("click", function (event) {
+            if (event.target.classList.contains("x-btn-favList")) {
+                const li = event.target.closest("li");
+                const favoriTexte = li.querySelector("span").textContent;
+
+                let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+                favoris = favoris.filter(fav => fav !== favoriTexte);
+
+                localStorage.setItem("favoris", JSON.stringify(favoris));
+
+                li.remove();
+                siRecetteEnFavoris();
+            }
         });
 });
+
+function siRecetteEnFavoris() {
+    const listeFavoris = JSON.parse(localStorage.getItem("favoris")) || [];
+    let nomRecettes = [
+        document.querySelector(".nom-aleatoire-un")?.textContent,
+        document.querySelector(".nom-aleatoire-deux")?.textContent,
+        document.querySelector(".nom-aleatoire-trois")?.textContent,
+    ].filter(Boolean);
+
+    document.getElementById("logo-fav1").textContent = "favorite_border";
+    document.getElementById("logo-fav2").textContent = "favorite_border";
+    document.getElementById("logo-fav3").textContent = "favorite_border";
+
+    nomRecettes.forEach((nom, index) => {
+        if (nom && listeFavoris.includes(nom)) {
+            document.getElementById(`logo-fav${index + 1}`).textContent =
+                "delete_forever";
+        }
+    });
+}

@@ -4,7 +4,6 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(data => {
                 let indices = [];
-
                 while (indices.length < 3) {
                     let indexAleatoire = Math.floor(
                         Math.random() * data.recettes.length
@@ -18,6 +17,7 @@ $(document).ready(function () {
                     index => data.recettes[index]
                 );
 
+                // Mise à jour de la première recette
                 $(".nom-aleatoire-un").text(recettesAleatoires[0].nom);
                 $("#ingredients-un").empty();
                 recettesAleatoires[0].ingredients.forEach(ingredient => {
@@ -29,7 +29,6 @@ $(document).ready(function () {
                         );
                     }
                 });
-
                 $("#img-recette1").html(
                     `<img src="${recettesAleatoires[0].images}" class="activator img-recettes" style="width: 100%;">`
                 );
@@ -42,6 +41,7 @@ $(document).ready(function () {
                     .empty()
                     .append(`<p>Etapes: ${recettesAleatoires[0].etapes}</p>`);
 
+                // Mise à jour de la deuxième recette
                 $(".nom-aleatoire-deux").text(recettesAleatoires[1].nom);
                 $("#ingredients-deux").empty();
                 recettesAleatoires[1].ingredients.forEach(ingredient => {
@@ -56,15 +56,16 @@ $(document).ready(function () {
                 $("#img-recette2").html(
                     `<img src="${recettesAleatoires[1].images}" class="activator img-recettes" style="width: 100%;">`
                 );
-                $("#etapes2")
-                    .empty()
-                    .append(`<p>Etapes: ${recettesAleatoires[1].etapes}</p>`);
                 $("#duree2")
                     .empty()
                     .append(
                         `<p>Temps de préparation: ${recettesAleatoires[1].temps_preparation}</p>`
                     );
+                $("#etapes2")
+                    .empty()
+                    .append(`<p>Etapes: ${recettesAleatoires[1].etapes}</p>`);
 
+                // Mise à jour de la troisième recette
                 $(".nom-aleatoire-trois").text(recettesAleatoires[2].nom);
                 $("#ingredients-trois").empty();
                 recettesAleatoires[2].ingredients.forEach(ingredient => {
@@ -78,18 +79,20 @@ $(document).ready(function () {
                         );
                     }
                 });
-
                 $("#img-recette3").html(
                     `<img src="${recettesAleatoires[2].images}" class="activator img-recettes" style="width: 100%;">`
                 );
-                $("#etapes3")
-                    .empty()
-                    .append(`<p>Etapes: ${recettesAleatoires[2].etapes}</p>`);
                 $("#duree3")
                     .empty()
                     .append(
                         `<p>Temps de préparation: ${recettesAleatoires[2].temps_preparation}</p>`
                     );
+                $("#etapes3")
+                    .empty()
+                    .append(`<p>Etapes: ${recettesAleatoires[2].etapes}</p>`);
+            })
+            .then(() => {
+                siRecetteEnFavoris(); // Assurez-vous que siRecetteEnFavoris est accessible
             })
             .catch(error =>
                 console.error(
@@ -98,48 +101,14 @@ $(document).ready(function () {
                 )
             );
     }
+
     recharger();
-    $("#recharger").on("click", () => {
-        recharger();
-        $("#logo-fav1").text("favorite_border");
-        $("#logo-fav2").text("favorite_border");
-        $("#logo-fav3").text("favorite_border");
-    });
+    $("#recharger").on("click", recharger);
 
-    $("body").on("click", "#add-bouton1", function () {
-        let icon = $("#logo-fav1").text();
-        if (icon === "favorite_border") {
-            $("#logo-fav1").text("delete_forever");
-        } else {
-            $("#logo-fav1").text("favorite_border");
-        }
-    });
-
-    $("body").on("click", "#add-bouton2", function () {
-        let icon = $("#logo-fav2").text();
-        if (icon === "favorite_border") {
-            $("#logo-fav2").text("delete_forever");
-        } else {
-            $("#logo-fav2").text("favorite_border");
-        }
-    });
-
-    $("body").on("click", "#add-bouton3", function () {
-        let icon = $("#logo-fav3").text();
-        if (icon === "favorite_border") {
-            $("#logo-fav3").text("delete_forever");
-        } else {
-            $("#logo-fav3").text("favorite_border");
-        }
-    });
     $("body").on("click", ".bouton-fermer-ouvrir", function () {
         let card = $(this).closest(".card");
-
-        if (card.hasClass("revealed")) {
-            card.removeClass("revealed");
-        } else {
-            $(".card").removeClass("revealed");
-            card.addClass("revealed");
-        }
+        card.hasClass("revealed")
+            ? card.removeClass("revealed")
+            : card.addClass("revealed");
     });
 });

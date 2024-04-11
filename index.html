@@ -41,15 +41,26 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"
         ></script>
-        <script defer src="javascript/accueil.js"></script>
+        <script defer src="javascript/recetteAleatoire.js"></script>
         <script defer src="javascript/favoris.js"></script>
     </head>
     <body>
         <header></header>
         <main>
-            <section class="titre-btn">
-                <h2 class="titre">Recettes aléatoires</h2>
-                <i id="recharger" class="small material-icons">cached</i>
+            <img src="assets/background.jpg" alt="" class="background" />
+            <section class="background-element">
+                <section id="sectionFav">
+                    <i class="medium material-icons" id="afficherFavoris"
+                        >favorite</i
+                    >
+
+                    <div id="listefav" class="cacherLaListe"></div>
+                </section>
+
+                <section class="titre-btn">
+                    <h2 class="titre">Recettes aléatoires</h2>
+                    <i id="recharger" class="small material-icons">cached</i>
+                </section>
             </section>
 
             <section class="container section-recettes">
@@ -197,8 +208,6 @@
                     </div>
                 </div>
             </section>
-            <button id="afficherFavoris">Afficher les favs</button>
-            <div id="listefav"></div>
         </main>
         <footer></footer>
     </body>

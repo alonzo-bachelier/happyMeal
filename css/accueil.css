@@ -1,3 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#sectionFav {
+    /*Header favoris*/
+    text-align: center;
+}
+#afficherFavoris {
+    /*Header favoris*/
+    cursor: pointer;
+    font-size: 35px;
+}
+#listefav {
+    /*Header favoris*/
+    background-color: aquamarine;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    border-radius: 10px;
+}
+.x-btn-favList {
+    /*Header favoris*/
+    margin-top: 5px;
+    margin-right: 5px;
+    float: right;
+}
+.cacherLaListe {
+    /*Header favoris*/
+    display: none;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    background-image: url("chemin/vers/votre/image.jpg");
+    background-size: cover;
+    filter: blur(3px) contrast(1.2) brightness(0.8);
+    z-index: -1;
+}
+.background-element {
+    background-color: rgba(255, 255, 255, 0.399);
+}
+.material-icons {
+    user-select: none;
+}
 .titre {
     font-family: "Karla";
     text-align: center;
