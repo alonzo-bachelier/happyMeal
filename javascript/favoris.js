@@ -27,22 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("afficherFavoris")
         .addEventListener("click", function () {
             const listefav = document.getElementById("listefav");
-
-            if (listefav.classList.contains("cacherLaListe")) {
-                listefav.classList.remove("cacherLaListe");
-
-                listefav.innerHTML = "";
-                const listeFavoris =
-                    JSON.parse(localStorage.getItem("favoris")) || [];
-                listeFavoris.forEach(fav => {
-                    const ul = document.createElement("ul");
-                    ul.setAttribute("id", "ul-fav");
-                    ul.innerHTML = `<li><span>${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i></li>`;
-                    listefav.appendChild(ul);
-                });
-            } else {
-                listefav.classList.add("cacherLaListe");
-            }
+            listefav.innerHTML = "";
+            const listeFavoris =
+                JSON.parse(localStorage.getItem("favoris")) || [];
+            listeFavoris.forEach(fav => {
+                const ul = document.createElement("ul");
+                ul.setAttribute("id", "ul-fav");
+                ul.innerHTML = `<li><span>${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i></li>`;
+                listefav.appendChild(ul);
+            });
             siRecetteEnFavoris();
         });
 
