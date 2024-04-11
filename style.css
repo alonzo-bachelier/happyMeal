@@ -9,3 +9,18 @@
     max-height: 250px; /* Hauteur maximale des suggestions pour éviter un débordement */
     overflow-y: auto; /* Défilement vertical si nécessaire */
 }
+
+
+/* STYLE LIENS POUR LES NAV */
+
+
+.custom-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    color: #ffffffc5; 
+    text-decoration: underline;
+}
+

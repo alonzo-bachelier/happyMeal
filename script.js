@@ -1,3 +1,13 @@
+/**
+ * Ce qu'il reste à faire :
+ * 1. Afficher au même titre que les résultats sous la barre de recherche,
+ * les cartes (card) bootstrap correspondantes aux recettes recherchées. 
+ * 
+ * 2. Faire en sorte que lors de la recherche, soit cela redirige sur recettes.html
+ * et affiche les recettes recherchées, soit les affiches directement (si tu es déjà sur
+ * recettes.html).
+*/
+
 
 // Fonction: FETCH POUR RECUP JSON
 function getData() {
@@ -7,60 +17,25 @@ function getData() {
         jsonData = json; // Stockage des données dans la variable globale
         console.log(jsonData);
         saisieUtilisateurs()
-        saisieUtilisateursIngredients()
        
     });
 }
     
 const champRecherche = document.getElementById ('chercheInput1');
+
 function saisieUtilisateurs() {
     champRecherche.addEventListener('input', function(event) {
-        const saisieUtilisateur = event.target.value;
-        const suggestions = jsonData.recettes.filter
-        (item => item.nom.toLowerCase().includes(saisieUtilisateur.toLowerCase()));
+        const saisieUtilisateur = event.target.value.trim().toLowerCase();
 
-            afficherSuggestions(suggestions);
-            });
-}
+        // Suggestions de recettes par nom
+        const suggestions = jsonData.recettes.filter(item => item.nom.toLowerCase().includes(saisieUtilisateur));
+        console.log("Suggestions de recettes :", suggestions);
 
-function afficherSuggestions(suggestions) {
-    // Sélection de l'élément où afficher les suggestions
-    const autocompleteContainer = document.getElementById('autocompleteContainer1');
-    autocompleteContainer.innerHTML = '';
- 
-    // creation liste UL
-    const ul = document.createElement('ul');
-    suggestions.forEach(suggestion => {
-        // Création d'un élément de liste (li) pour chaque suggestion
-        const li = document.createElement('li');
-// Création d'un lien (a) pour chaque suggestion
-const link = document.createElement('a');
-link.href = "#"; 
-link.textContent = suggestion.nom; 
-
-// evénements pour le clic du lien
-link.addEventListener('click', function(event) {
-    event.preventDefault(); // Empêcher le comportement par défaut du lien
-    champRecherche.value = suggestion.nom;
-    autocompleteContainer.innerHTML = '';
- fetchRecetteParNom(suggestion.nom);
-});
-
-li.appendChild(link);
-ul.appendChild(li);
-});
-autocompleteContainer.appendChild(ul);
-}
-//INGREDIENTS ------
-    const champRechercheIngredients = document.getElementById('chercheInput2');
-
-function saisieUtilisateursIngredients() {
-    champRechercheIngredients.addEventListener('input', function(event) {
-        const saisieUtilisateur = event.target.value;
+        // Suggestions d'ingrédients
         const suggestionsIngredients = [];
         jsonData.recettes.forEach(item => {
             item.ingredients.forEach(ingredient => {
-                if (ingredient.nom && ingredient.nom.toLowerCase().includes(saisieUtilisateur.toLowerCase())) {
+                if (ingredient.nom && ingredient.nom.toLowerCase().includes(saisieUtilisateur)) {
                     const ingredientExisteDeja = suggestionsIngredients.find(
                         suggestion => suggestion.nom === ingredient.nom
                     );
@@ -70,75 +45,125 @@ function saisieUtilisateursIngredients() {
                 }
             });
         });
-        afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredients);
+        console.log("Suggestions d'ingrédients :", suggestionsIngredients);
+
+        // Recettes trouvées par ingrédient
+        let trouverParIngredient = [];
+        jsonData.recettes.forEach(recette => {
+            recette.ingredients.forEach(ingredient => {
+                if (ingredient.nom && ingredient.nom.toLowerCase().includes(saisieUtilisateur)) {
+                    if (!trouverParIngredient.includes(recette) && !suggestions.includes(recette)) {
+                        trouverParIngredient.push(recette);
+                    }
+                }
+            });
+        });
+        console.log("Recettes trouvées par ingrédient :", trouverParIngredient);
+
+        // Afficher les suggestions
+        afficherSuggestions(suggestions, trouverParIngredient);
     });
 }
 
-function afficherSuggestionsIngredients(saisieUtilisateur, suggestionsIngredients) {
-    const autocompleteContainer = document.getElementById('autocompleteContainer2');
+function afficherSuggestions(suggestions, recettesParIngredient) {
+    const autocompleteContainer = document.getElementById('autocompleteContainer1');
     autocompleteContainer.innerHTML = '';
 
+    // Création d'une liste pour afficher les résultats
     const ul = document.createElement('ul');
-    suggestionsIngredients.forEach(suggestion => {
-        const li = document.createElement('li');
-        li.textContent = suggestion.nom;
 
-        li.addEventListener('click', function() {
-            champRechercheIngredients.value = suggestion;
+    // Ajout des suggestions de recettes
+    suggestions.forEach(suggestion => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = "#"; 
+        link.textContent = suggestion.nom; 
+
+        // Événement clic sur le lien : remplir le champ avec le nom de la suggestion et vider la liste
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            champRecherche.value = suggestion.nom;
             autocompleteContainer.innerHTML = '';
         });
 
+        li.appendChild(link);
         ul.appendChild(li);
     });
+
+    // Vérifie si recettesParIngredient est défini avant d'ajouter les recettes trouvées par ingrédient
+    if (recettesParIngredient) {
+        recettesParIngredient.forEach(recette => {
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = "#"; 
+            link.textContent = recette.nom; 
+
+            // Événement clic sur le lien : remplir le champ avec le nom de la recette et vider la liste
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                champRecherche.value = recette.nom;
+                autocompleteContainer.innerHTML = '';
+            });
+
+            li.appendChild(link);
+            ul.appendChild(li);
+        });
+    }
 
     autocompleteContainer.appendChild(ul);
 }
 
+function afficherRecettesIngredientsPopup(trouverParIngredient) {
+    const popupContainer = document.getElementById('ingredientPopupContainer');
+    popupContainer.innerHTML = '';
 
+    // chaque recette ; création card dans une div
+    trouverParIngredient.forEach(recette => { // Correction ici : changer suggestion en recette
+        
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.style.width = '18rem';
 
-// AFFICHER LA RECETTE EN CLIQUANT 
-function afficherDetailsRecette(recette) {
-    // Affichage des détails de la recette (par exemple, vous pouvez les afficher dans une modale)
-    console.log("Nom de la recette:", recette.nom);
-    console.log("Catégorie:", recette.categorie);
-    console.log("Temps de préparation:", recette.temps_preparation);
-    console.log("Ingrédients:");
-    recette.ingredients.forEach(ingredient => {
-        console.log("- " + ingredient.nom + ": " + ingredient.quantite);
+        // Création de l'image de la recette avec la classe "card-img-top" de Bootstrap
+        const img = document.createElement('img');
+        img.classList.add('card-img-top');
+        img.src = recette.images; // Utilisation de recette au lieu de suggestion
+        img.alt = 'Image de la recette';
+        card.appendChild(img);
+
+        // Création d'une div avec la classe "card-body" de Bootstrap
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        // Ajout du titre de la recette à la carte avec la classe "card-title" de Bootstrap
+        const title = document.createElement('h5');
+        title.classList.add('card-title');
+        title.textContent = recette.nom; // Utilisation de recette au lieu de suggestion
+        cardBody.appendChild(title);
+
+        // Création de la liste des ingrédients pour la recette
+        const ingredientsList = document.createElement('ul');
+        recette.ingredients.forEach(ingredient => {
+            const ingredientItem = document.createElement('li');
+            ingredientItem.textContent = `${ingredient.nom} : ${ingredient.quantite}`;
+            ingredientsList.appendChild(ingredientItem);
+        });
+        cardBody.appendChild(ingredientsList);
+
+        // Création d'un bouton "Voir la recette" avec la classe "btn btn-primary" de Bootstrap
+        const button = document.createElement('a');
+        button.classList.add('btn', 'btn-primary');
+        button.href = '#';
+        button.textContent = 'Voir la recette';
+        cardBody.appendChild(button);
+
+        // Ajout de la div "card-body" à la div "card"
+        card.appendChild(cardBody);
+
+        // Ajout de la carte au conteneur pour les recettes
+        popupContainer.appendChild(card);
     });
-    console.log("Étapes:");
-    recette.etapes.forEach((etape, index) => {
-        console.log((index + 1) + ". " + etape);
-    });
 }
-function fetchRecetteParNom(nomRecette) {
-    fetch('../json/data.json')
-    .then(res => res.json())
-    .then(json => {
-        // Recherche de la recette correspondante
-        const recette = json.find(item => item.nom === nomRecette);
-        // Affichage des détails de la recette
-        if (recette) {
-            afficherDetailsRecette(recette);
-        } else {
-            console.log("Aucune recette trouvée pour le nom:", nomRecette);
-        }
-    })
-    .catch(error => console.error("Erreur lors du chargement des données:", error));
-}
-
-// Fonction pour gérer le clic sur un lien de suggestion
-function handleClickSuggestion(event, nomRecette) {
-    event.preventDefault(); // Empêcher le comportement par défaut du lien
-    fetchRecetteParNom(nomRecette);
-}
-
-
-
-
-
-
-
 
 
 getData();
