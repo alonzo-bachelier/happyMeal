@@ -58,11 +58,34 @@ function saisieUtilisateurs() {
                 }
             });
         });
+        
         console.log("Recettes trouvées par ingrédient :", trouverParIngredient);
 
         // Afficher les suggestions
         afficherSuggestions(suggestions, trouverParIngredient);
-    });
+        afficherRecettesIngredientsPopup(suggestions, trouverParIngredient);
+
+
+   // Gestion du clic sur les suggestions
+   const autocompleteContainer = document.getElementById('autocompleteContainer1');
+   autocompleteContainer.querySelectorAll('li a').forEach(link => {
+       link.addEventListener('click', function(event) {
+           event.preventDefault(); 
+           const suggestionNom = this.textContent;
+           champRecherche.value = suggestionNom;
+           autocompleteContainer.innerHTML = '';
+       
+           // Vérifie si vous êtes déjà sur recettes.html
+           if(window.location.pathname.includes("recettes.html")) {
+               // Si oui, utilisez une fonction pour afficher directement les recettes
+               afficherRecettes(suggestionNom); // Remplacez suggestionNom par le nom de la recette sélectionnée
+           } else {
+               // Sinon, redirigez l'utilisateur vers recettes.html avec les paramètres de recherche
+               window.location.href = "recettes.html?search=" + encodeURIComponent(suggestionNom);
+           }
+       });
+   });
+});
 }
 
 function afficherSuggestions(suggestions, recettesParIngredient) {
@@ -88,6 +111,7 @@ function afficherSuggestions(suggestions, recettesParIngredient) {
 
         li.appendChild(link);
         ul.appendChild(li);
+        autocompleteContainer.appendChild(ul)
     });
 
     // Vérifie si recettesParIngredient est défini avant d'ajouter les recettes trouvées par ingrédient
@@ -98,7 +122,7 @@ function afficherSuggestions(suggestions, recettesParIngredient) {
             link.href = "#"; 
             link.textContent = recette.nom; 
 
-            // Événement clic sur le lien : remplir le champ avec le nom de la recette et vider la liste
+            // Événement clic sur lien : remplir le champ avec le nom de la recette et vider la liste
             link.addEventListener('click', function(event) {
                 event.preventDefault(); 
                 champRecherche.value = recette.nom;
@@ -113,12 +137,13 @@ function afficherSuggestions(suggestions, recettesParIngredient) {
     autocompleteContainer.appendChild(ul);
 }
 
-function afficherRecettesIngredientsPopup(trouverParIngredient) {
-    const popupContainer = document.getElementById('ingredientPopupContainer');
+function afficherRecettesIngredientsPopup(suggestions, trouverParIngredient) {
+    const popupContainer = document.getElementById('recettesContainer');
     popupContainer.innerHTML = '';
-
+    // Mélanger suggestions recettes + recettes par ingrédient
+    const toutesLesRecettes = [...suggestions, ...trouverParIngredient];
     // chaque recette ; création card dans une div
-    trouverParIngredient.forEach(recette => { // Correction ici : changer suggestion en recette
+    toutesLesRecettes.forEach(recette => { 
         
         const card = document.createElement('div');
         card.classList.add('card');

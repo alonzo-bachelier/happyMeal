@@ -6,82 +6,59 @@
  * comme pour les favoris :)
 */
 
-function siIngredientAjoute() {
-    const listeCourses = JSON.parse(localStorage.getItem("courses")) || [];
-    let nomRecettes = [
-        document.querySelector(".nom-aleatoire-un")?.textContent,
-        document.querySelector(".nom-aleatoire-deux")?.textContent,
-        document.querySelector(".nom-aleatoire-trois")?.textContent,
-    ].filter(Boolean);
-
-    document.getElementById("logo-fav1").textContent = "favorite_border";
-    document.getElementById("logo-fav2").textContent = "favorite_border";
-    document.getElementById("logo-fav3").textContent = "favorite_border";
-
-    nomRecettes.forEach((nom, index) => {
-        if (nom && listeFavoris.includes(nom)) {
-            document.getElementById(`logo-fav${index + 1}`).textContent =
-                "delete_forever";
-        }
-    });
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-    siIngredientAjoute();
+    // Fonction pour mettre à jour l'affichage des ingrédients en fonction de leur présence dans la liste de courses
+    function siIngredientAjoute() {
+        // Récupérer la liste des ingrédients de la liste de courses depuis le localStorage
+        const listeCourses = JSON.parse(localStorage.getItem("listeCourses")) || [];
+        
+        // Parcourir les boutons d'ajout aux courses
+        document.querySelectorAll(".ajoutIngredientCourse").forEach(function (bouton, index) {
+            // Récupérer les ingrédients de la recette associée au bouton
+            const ingredientsRecette = Array.from(document.querySelectorAll(`.liste-ingredients-${index + 1} li`)).map(li => li.textContent.trim());
 
-    document.querySelectorAll(".bouton-favoris").forEach(function (bouton) {
+            // Vérifier pour chaque ingrédient s'il est dans la liste de courses
+            ingredientsRecette.forEach((ingredient, i) => {
+                const logoFav = document.getElementById(`logo-fav${index + 1}-${i + 1}`);
+                if (ingredient && listeCourses.includes(ingredient)) {
+                    // Si l'ingrédient est dans la liste de courses, changer l'icône du bouton pour indiquer qu'il est déjà dans la liste
+                    logoFav.textContent = "delete_forever";
+                } else {
+                    // Sinon, afficher l'icône normale du bouton
+                    logoFav.textContent = "favorite_border";
+                }
+            });
+        });
+    }
+
+    // Ajouter un écouteur d'événement pour chaque bouton d'ajout aux courses
+    document.querySelectorAll(".ajoutIngredientCourse").forEach(function (bouton, index) {
         bouton.addEventListener("click", function () {
-            const card = this.closest(".card");
-            const nomRecette = card.querySelector(
-                ".nom-aleatoire-un, .nom-aleatoire-deux, .nom-aleatoire-trois"
-            ).textContent;
+            // Récupérer les ingrédients de la recette associée au bouton
+            const ingredientsRecette = Array.from(document.querySelectorAll(`.liste-ingredients-${index + 1} li`)).map(li => li.textContent.trim());
 
-            let favoris = JSON.parse(localStorage.getItem("courses")) || [];
+            // Récupérer la liste des courses depuis le localStorage
+            let listeCourses = JSON.parse(localStorage.getItem("listeCourses")) || [];
 
-            if (courses.includes(nomRecette)) {
-                courses = courses.filter(favori => favori !== nomRecette);
-            } else {
-                courses.push(nomRecette);
-            }
+            // Vérifier pour chaque ingrédient s'il est dans la liste de courses
+            ingredientsRecette.forEach(ingredient => {
+                const index = listeCourses.indexOf(ingredient);
+                if (index !== -1) {
+                    // Si l'ingrédient est déjà dans la liste de courses, le retirer
+                    listeCourses.splice(index, 1);
+                } else {
+                    // Sinon, l'ajouter à la liste de courses
+                    listeCourses.push(ingredient);
+                }
+            });
 
-            localStorage.setItem("courses", JSON.stringify(courses));
-            listefav.classList.add("cacherLaListe");
+            // Mettre à jour la liste de courses dans le localStorage
+            localStorage.setItem("listeCourses", JSON.stringify(listeCourses));
 
+            // Mettre à jour l'affichage des icônes des boutons en fonction de la liste de courses mise à jour
             siIngredientAjoute();
         });
     });
 
-    document
-        .getElementById("afficherFavoris")
-        .addEventListener("click", function () {
-            const listefav = document.getElementById("listefav");
-            listefav.innerHTML = "";
-            const listeFavoris =
-                JSON.parse(localStorage.getItem("favoris")) || [];
-            listeFavoris.forEach(fav => {
-                const ul = document.createElement("ul");
-                ul.setAttribute("id", "ul-fav");
-                ul.innerHTML = `<li><span>${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i></li>`;
-                listefav.appendChild(ul);
-            });
-            siRecetteEnFavoris();
-        });
-
-    document
-        .getElementById("listeCourses")
-        .addEventListener("click", function (event) {
-            if (event.target.classList.contains("x-btn-favList")) {
-                const li = event.target.closest("li");
-                const favoriTexte = li.querySelector("span").textContent;
-
-                let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
-                favoris = favoris.filter(fav => fav !== favoriTexte);
-
-                localStorage.setItem("favoris", JSON.stringify(favoris));
-
-                li.remove();
-                siIngredientAjoute();
-            }
-        });
+    siIngredientAjoute();
 });
-

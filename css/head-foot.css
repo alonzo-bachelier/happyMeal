@@ -24,3 +24,11 @@
     text-decoration: underline;
 }
 
+#autocompleteContainer1{
+    position: absolute;
+    float: right;
+    top: 90px;
+    background-color: coral;
+    border-radius: 8px;
+
+}
