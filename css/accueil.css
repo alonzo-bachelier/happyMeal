@@ -38,6 +38,11 @@
 }
 .material-icons {
     user-select: none;
+    font-size: 35px;
+}
+.material-icons:hover {
+    font-size: 37px;
+    transition: all 0.1s ease-out;
 }
 .titre {
     font-family: "Karla";
@@ -120,4 +125,10 @@
 .bouton-favoris:focus {
     background: none;
     background-color: transparent;
+}
+.x-btn-favList {
+    font-size: 15px;
+}
+.x-btn-favList:hover {
+    font-size: 18px;
 }
