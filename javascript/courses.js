@@ -4,61 +4,70 @@
  * 3. Dans la modal de liste de courses, afficher (avec getItem()) tous les ingrédients du localStorage `ListeCourses`
  * 4. Dans la génération de tous les ingrédients dans la modal, créer un petit bouton permettant de supprimer un ingrédient,
  * comme pour les favoris :)
-*/
-
+ */
 document.addEventListener("DOMContentLoaded", function () {
-    // Fonction pour mettre à jour l'affichage des ingrédients en fonction de leur présence dans la liste de courses
-    function siIngredientAjoute() {
-        // Récupérer la liste des ingrédients de la liste de courses depuis le localStorage
-        const listeCourses = JSON.parse(localStorage.getItem("listeCourses")) || [];
-        
-        // Parcourir les boutons d'ajout aux courses
-        document.querySelectorAll(".ajoutIngredientCourse").forEach(function (bouton, index) {
-            // Récupérer les ingrédients de la recette associée au bouton
-            const ingredientsRecette = Array.from(document.querySelectorAll(`.liste-ingredients-${index + 1} li`)).map(li => li.textContent.trim());
+    // Initialise la liste de courses dans le localStorage s'il n'existe pas
+    if (!localStorage.getItem("courses")) {
+        localStorage.setItem("courses", JSON.stringify([]));
+    }
 
-            // Vérifier pour chaque ingrédient s'il est dans la liste de courses
-            ingredientsRecette.forEach((ingredient, i) => {
-                const logoFav = document.getElementById(`logo-fav${index + 1}-${i + 1}`);
-                if (ingredient && listeCourses.includes(ingredient)) {
-                    // Si l'ingrédient est dans la liste de courses, changer l'icône du bouton pour indiquer qu'il est déjà dans la liste
-                    logoFav.textContent = "delete_forever";
-                } else {
-                    // Sinon, afficher l'icône normale du bouton
-                    logoFav.textContent = "favorite_border";
-                }
-            });
+    // Mise à jour de l'affichage des ingrédients basé sur le localStorage
+    function updateIngredientDisplay() {
+        const courses = JSON.parse(localStorage.getItem("courses")) || [];
+        document.querySelectorAll("[data-ingredient]").forEach(button => {
+            const ingredient = button.getAttribute("data-ingredient");
+            button.textContent = courses.includes(ingredient)
+                ? "remove"
+                : "add";
         });
     }
 
-    // Ajouter un écouteur d'événement pour chaque bouton d'ajout aux courses
-    document.querySelectorAll(".ajoutIngredientCourse").forEach(function (bouton, index) {
-        bouton.addEventListener("click", function () {
-            // Récupérer les ingrédients de la recette associée au bouton
-            const ingredientsRecette = Array.from(document.querySelectorAll(`.liste-ingredients-${index + 1} li`)).map(li => li.textContent.trim());
+    // Gère l'ajout ou la suppression d'ingrédients dans le localStorage
+    document.body.addEventListener("click", function (event) {
+        if (event.target.matches(".ajoutIngredientCourse")) {
+            const ingredient = event.target.getAttribute("data-ingredient");
+            let courses = JSON.parse(localStorage.getItem("courses")) || [];
 
-            // Récupérer la liste des courses depuis le localStorage
-            let listeCourses = JSON.parse(localStorage.getItem("listeCourses")) || [];
+            if (courses.includes(ingredient)) {
+                courses = courses.filter(i => i !== ingredient); // Supprime l'ingrédient
+            } else {
+                courses.push(ingredient); // Ajoute l'ingrédient
+            }
 
-            // Vérifier pour chaque ingrédient s'il est dans la liste de courses
-            ingredientsRecette.forEach(ingredient => {
-                const index = listeCourses.indexOf(ingredient);
-                if (index !== -1) {
-                    // Si l'ingrédient est déjà dans la liste de courses, le retirer
-                    listeCourses.splice(index, 1);
-                } else {
-                    // Sinon, l'ajouter à la liste de courses
-                    listeCourses.push(ingredient);
-                }
-            });
-
-            // Mettre à jour la liste de courses dans le localStorage
-            localStorage.setItem("listeCourses", JSON.stringify(listeCourses));
-
-            // Mettre à jour l'affichage des icônes des boutons en fonction de la liste de courses mise à jour
-            siIngredientAjoute();
-        });
+            localStorage.setItem("courses", JSON.stringify(courses)); // Met à jour le localStorage
+            updateIngredientDisplay(); // Met à jour l'affichage des boutons
+            displayCoursesList(); // Met à jour la liste des courses dans la modal
+        }
     });
 
-    siIngredientAjoute();
+    // Affiche la liste des courses dans la modal
+    function displayCoursesList() {
+        const courses = JSON.parse(localStorage.getItem("courses")) || [];
+        const listElement = document.getElementById("listeCourses");
+        listElement.innerHTML = ""; // Efface les entrées existantes
+
+        courses.forEach(ingredient => {
+            const item = document.createElement("li");
+            item.textContent = ingredient;
+            const removeButton = document.createElement("i");
+            removeButton.setAttribute("class", "material-icons");
+            removeButton.textContent = "delete_forever";
+            removeButton.addEventListener("click", function () {
+                const newCourses = courses.filter(i => i !== ingredient);
+                localStorage.setItem("courses", JSON.stringify(newCourses));
+                displayCoursesList(); // Met à jour la liste
+                updateIngredientDisplay(); // Met à jour les boutons
+            });
+            item.appendChild(removeButton);
+            listElement.appendChild(item);
+        });
+    }
+
+    // Ajoute l'évènement pour ouvrir la modal et afficher la liste à jour
+    document
+        .getElementById("afficherListeCourse")
+        .addEventListener("click", displayCoursesList);
+
+    // Appel initial pour configurer l'affichage correct des boutons.
+    updateIngredientDisplay();
 });

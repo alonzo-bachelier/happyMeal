@@ -1,7 +1,5 @@
 /**
  * Ce qu'il reste à faire :
- * 1. Afficher au même titre que les résultats sous la barre de recherche,
- * les cartes (card) bootstrap correspondantes aux recettes recherchées. 
  * 
  * 2. Faire en sorte que lors de la recherche, soit cela redirige sur recettes.html
  * et affiche les recettes recherchées, soit les affiches directement (si tu es déjà sur
@@ -17,6 +15,7 @@ function getData() {
         jsonData = json; // Stockage des données dans la variable globale
         console.log(jsonData);
         saisieUtilisateurs()
+        recettes = jsonData.recettes;
        
     });
 }
@@ -29,7 +28,6 @@ function saisieUtilisateurs() {
 
         // Suggestions de recettes par nom
         const suggestions = jsonData.recettes.filter(item => item.nom.toLowerCase().includes(saisieUtilisateur));
-        console.log("Suggestions de recettes :", suggestions);
 
         // Suggestions d'ingrédients
         const suggestionsIngredients = [];
@@ -45,7 +43,6 @@ function saisieUtilisateurs() {
                 }
             });
         });
-        console.log("Suggestions d'ingrédients :", suggestionsIngredients);
 
         // Recettes trouvées par ingrédient
         let trouverParIngredient = [];
@@ -59,7 +56,6 @@ function saisieUtilisateurs() {
             });
         });
         
-        console.log("Recettes trouvées par ingrédient :", trouverParIngredient);
 
         // Afficher les suggestions
         afficherSuggestions(suggestions, trouverParIngredient);
@@ -99,7 +95,10 @@ function afficherSuggestions(suggestions, recettesParIngredient) {
     suggestions.forEach(suggestion => {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.href = "#"; 
+
+        const recettePage = trouverPageRecette(suggestion.nom); // Définir recettePage avant de l'utiliser
+        const recetteIndex = recettes.indexOf(suggestion); // Obtenir l'index de la recette dans le tableau recettes
+        link.href = recettePage + '#recette-' + recetteIndex;
         link.textContent = suggestion.nom; 
 
         // Événement clic sur le lien : remplir le champ avec le nom de la suggestion et vider la liste
@@ -119,7 +118,10 @@ function afficherSuggestions(suggestions, recettesParIngredient) {
         recettesParIngredient.forEach(recette => {
             const li = document.createElement('li');
             const link = document.createElement('a');
-            link.href = "#"; 
+    // Ajoutez l'attribut href avec l'URL de la page de la recette et l'ID
+            const recettePage = trouverPageRecette(recette.nom); 
+            const recetteIndex = recettes.indexOf(recette); // Obtenir l'index de la recette dans le tableau recettes
+            link.href = recettePage + '#recette-' + recetteIndex;
             link.textContent = recette.nom; 
 
             // Événement clic sur lien : remplir le champ avec le nom de la recette et vider la liste
@@ -188,6 +190,21 @@ function afficherRecettesIngredientsPopup(suggestions, trouverParIngredient) {
         // Ajout de la carte au conteneur pour les recettes
         popupContainer.appendChild(card);
     });
+}
+
+function trouverPageRecette(nomRecette) {
+    let recette = recettes.find(recetteItem => recetteItem.nom === nomRecette); // Utiliser un autre nom de variable pour l'élément actuel du tableau
+    let recetteIndex = recettes.indexOf(recette);
+
+    if (recetteIndex >= 0 && recetteIndex < 5) {
+        return "affiche.html";
+      } else if (recetteIndex >= 5 && recetteIndex < 10) {
+        return "affiche2.html";
+      } else if (recetteIndex >= 10 && recetteIndex < 15) {
+        return "affiche3.html";
+      } else {
+        return "";
+      }
 }
 
 

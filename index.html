@@ -37,8 +37,9 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"
         ></script>
-        <script defer src="javascript/courses.js"></script>
+
         <script defer src="javascript/recetteAleatoire.js"></script>
+        <script defer src="javascript/courses.js"></script>
         <script defer src="javascript/favoris.js"></script>
     </head>
     <body>
@@ -106,59 +107,71 @@
                     </div>
                 </section>
 
-<!-- -----------------TEST MODALE AJOUTER A LA LISTE DE COURSE ------------------------>
+                <!-- -----------------TEST MODALE AJOUTER A LA LISTE DE COURSE ------------------------>
 
-<section id="sectionCourses">
-    <i class="medium material-icons" id="afficherListeCourse" 
-    type="button" data-bs-toggle="modal" data-bs-target="#modalCourses">shopping_cart</i>
-
-    <!-- Modale -->
-    <div
-        class="modal fade"
-        id="modalCourses"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 texte-modal"
-                        id="exampleModalLabel">
-                       🛒 Liste de course 🛒
-                    </h1>
-
-                    <button
+                <section id="sectionCourses">
+                    <i
+                        class="medium material-icons"
+                        id="afficherListeCourse"
                         type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <div
-                        id="listeCourses"
-                        class="cacherLaListe"
-                    ></div>
-                </div>
-                <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCourses"
+                        >shopping_cart</i
                     >
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" id="sauvegarderCourses">
-                        Sauver 
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
+                    <!-- Modale -->
+                    <div
+                        class="modal fade"
+                        id="modalCourses"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1
+                                        class="modal-title fs-5 texte-modal"
+                                        id="exampleModalLabel"
+                                    >
+                                        🛒 Liste de course 🛒
+                                    </h1>
 
-<!------------------------------------ FIN DE LA MODALE ---------------->
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div
+                                        id="listeCourses"
+                                        class="cacherLaListe"
+                                    ></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Close
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="sauvegarderCourses"
+                                    >
+                                        Sauver
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!------------------------------------ FIN DE LA MODALE ---------------->
                 <section class="titre-btn">
                     <h2 class="titre">Recettes aléatoires</h2>
                     <i id="recharger" class="small material-icons">cached</i>
@@ -249,14 +262,25 @@
                         <span class="card-title grey-text text-darken-4"
                             ><div class="nom-aleatoire-deux">Card Title</div>
 
-                            <div
-                                id="ingredients-deux"
-                                class="para-ingredient"
-                            >  <button type="button" class="btn btn-success btn-round">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-      <path d="M8 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5zM15.5 8a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1 0-1h13a.5.5 0 0 1 .5.5zM8 15.5a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM.5 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
-    </svg>
-  </button></div>
+                            <div id="ingredients-deux" class="para-ingredient">
+                                <button
+                                    type="button"
+                                    class="btn btn-success btn-round"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-plus"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path
+                                            d="M8 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5zM15.5 8a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1 0-1h13a.5.5 0 0 1 .5.5zM8 15.5a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM.5 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
                             <div id="etapes2"></div>
                             <div id="duree2"></div>
                             <i
