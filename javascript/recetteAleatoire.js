@@ -25,7 +25,7 @@ $(document).ready(function () {
                         $("#ingredients-un").append(`<li>${ingredient}</li>`);
                     } else {
                         $("#ingredients-un").append(
-                            `<li>${ingredient.quantite} de ${ingredient.nom}</li>`
+                            `<li>${ingredient.quantite} de ${ingredient.nom} <button class="tiny material-icons ajoutIngredientCourse" data-ingredient="${ingredient.nom}">add</button></li>`
                         );
                     }
                 });
@@ -49,7 +49,7 @@ $(document).ready(function () {
                         $("#ingredients-deux").append(`<li>${ingredient}</li>`);
                     } else {
                         $("#ingredients-deux").append(
-                            `<li>${ingredient.quantite} de ${ingredient.nom}</li>`
+                            `<li>${ingredient.quantite} de ${ingredient.nom} <button class="tiny material-icons ajoutIngredientCourse" data-ingredient="${ingredient.nom}">add</button></li>`
                         );
                     }
                 });
@@ -75,7 +75,7 @@ $(document).ready(function () {
                         );
                     } else {
                         $("#ingredients-trois").append(
-                            `<li>${ingredient.quantite} de ${ingredient.nom}</li>`
+                            `<li>${ingredient.quantite} de ${ingredient.nom} <button class="tiny material-icons ajoutIngredientCourse" data-ingredient="${ingredient.nom}">add</button></li>`
                         );
                     }
                 });

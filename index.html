@@ -36,7 +36,16 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"
         ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                console.log("jsPDF loaded:", typeof jsPDF !== "undefined");
+            });
+        </script>
         <script defer src="javascript/recetteAleatoire.js"></script>
+        <script defer src="javascript/courses.js"></script>
+        <script defer src="javascript/listeCoursePDF.js"></script>
         <script defer src="javascript/favoris.js"></script>
     </head>
     <body>
@@ -44,64 +53,123 @@
         <main>
             <img src="assets/background.jpg" alt="" class="background" />
             <section class="background-element">
-                <section id="sectionFav">
-                    <i
-                        class="medium material-icons"
-                        id="afficherFavoris"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        >favorite</i
-                    >
+                <section class="btn-listes">
+                    <section id="sectionFav">
+                        <i
+                            class="medium material-icons"
+                            id="afficherFavoris"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            >favorite</i
+                        >
 
-                    <!-- Modal -->
-                    <div
-                        class="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                    >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1
-                                        class="modal-title fs-5 texte-modal"
-                                        id="exampleModalLabel"
-                                    >
-                                        ❤️ Recettes favorites ❤️
-                                    </h1>
-                                    <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                    ></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div
-                                        id="listefav"
-                                        class="cacherLaListe"
-                                    ></div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Close
-                                    </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                    >
-                                        Save changes
-                                    </button>
+                        <!-- Modal -->
+                        <div
+                            class="modal fade"
+                            id="exampleModal"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1
+                                            class="modal-title fs-5 texte-modal"
+                                            id="exampleModalLabel"
+                                        >
+                                            ❤️ Recettes favorites ❤️
+                                        </h1>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div
+                                            id="listefav"
+                                            class="cacherLaListe"
+                                        ></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Fermer
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
+                    <!-- -----------------TEST MODALE AJOUTER A LA LISTE DE COURSE ------------------------>
+
+                    <section id="sectionCourses">
+                        <i
+                            class="small material-icons"
+                            id="afficherListeCourse"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCourses"
+                            >shopping_cart</i
+                        >
+
+                        <!-- Modale -->
+                        <div
+                            class="modal fade"
+                            id="modalCourses"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1
+                                            class="modal-title fs-5 texte-modal"
+                                            id="exampleModalLabel"
+                                        >
+                                            🛒 Liste de course 🛒
+                                        </h1>
+
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div
+                                            id="listeCourses"
+                                            class="cacherLaListe"
+                                        ></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Fermer
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            id="sauvegarderCourses"
+                                        >
+                                            Obtenir le PDF
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </section>
 
                 <section class="titre-btn">

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             listeFavoris.forEach(fav => {
                 const ul = document.createElement("ul");
                 ul.setAttribute("id", "ul-fav");
-                ul.innerHTML = `<li><span>${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i></li>`;
+                ul.innerHTML = `<li><span class="text-favoris-modal">${fav}</span><i class="x-btn-favList tiny material-icons">delete_forever</i> </li>`;
                 listefav.appendChild(ul);
             });
             siRecetteEnFavoris();
