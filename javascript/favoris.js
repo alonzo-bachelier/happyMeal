@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("favoris")) {
+        localStorage.setItem("favoris", JSON.stringify([]));
+    }
     siRecetteEnFavoris();
 
     document.querySelectorAll(".bouton-favoris").forEach(function (bouton) {
@@ -55,24 +58,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 siRecetteEnFavoris();
             }
         });
+    function siRecetteEnFavoris() {
+        const listeFavoris = JSON.parse(localStorage.getItem("favoris")) || [];
+        let nomRecettes = [
+            document.querySelector(".nom-aleatoire-un")?.textContent,
+            document.querySelector(".nom-aleatoire-deux")?.textContent,
+            document.querySelector(".nom-aleatoire-trois")?.textContent,
+        ].filter(Boolean);
+
+        document.getElementById("logo-fav1").textContent = "favorite_border";
+        document.getElementById("logo-fav2").textContent = "favorite_border";
+        document.getElementById("logo-fav3").textContent = "favorite_border";
+
+        nomRecettes.forEach((nom, index) => {
+            if (nom && listeFavoris.includes(nom)) {
+                document.getElementById(`logo-fav${index + 1}`).textContent =
+                    "delete_forever";
+            }
+        });
+    }
 });
-
-function siRecetteEnFavoris() {
-    const listeFavoris = JSON.parse(localStorage.getItem("favoris")) || [];
-    let nomRecettes = [
-        document.querySelector(".nom-aleatoire-un")?.textContent,
-        document.querySelector(".nom-aleatoire-deux")?.textContent,
-        document.querySelector(".nom-aleatoire-trois")?.textContent,
-    ].filter(Boolean);
-
-    document.getElementById("logo-fav1").textContent = "favorite_border";
-    document.getElementById("logo-fav2").textContent = "favorite_border";
-    document.getElementById("logo-fav3").textContent = "favorite_border";
-
-    nomRecettes.forEach((nom, index) => {
-        if (nom && listeFavoris.includes(nom)) {
-            document.getElementById(`logo-fav${index + 1}`).textContent =
-                "delete_forever";
-        }
-    });
-}
