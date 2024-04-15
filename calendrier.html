@@ -10,49 +10,77 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
     <title>Calendrier</title>
   </head>
   <body>
-    <div id="calendar"></div>
+    <main>
+      <div id="calendrier"></div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 texte-modal" id="exampleModalLabel">
-              ❤️ Recettes favorites ❤️
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div id="listefav" class="cacherLaListe"></div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="modalRecettes"
+        tabindex="-1"
+        aria-labelledby="modalRecettesLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 texte-modal" id="modalRecettesLabel">
+                ❤️ Recettes favorites ❤️
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="listefav" class="cacherLaListe"></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="ajoutRecettePlanning"
+                class="btn btn-success"
+              >
+                Ajouter au planning
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
+      <!-- Modal d'un événement -->
+      <div
+        class="modal fade"
+        id="modalRecetteCliquee"
+        tabindex="-1"
+        aria-labelledby="modalRecettesLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <button
+                type="button"
+                id="supprimeRecettePlanning"
+                class="btn btn-danger"
+              >
+                Supprimer la recette
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
     <script src="calendrier.js"></script>
   </body>
 </html>
