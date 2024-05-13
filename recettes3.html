@@ -3,50 +3,29 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Happy Meal</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="css/accueil.css" />
-        <link rel="stylesheet" href="css/head-foot.css" />
-
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
         />
-
+        <link rel="stylesheet" href="css/head-foot.css" />
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
         />
+        <title>Recettes</title>
         <script
             defer
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
         ></script>
-        <script
-            defer
-            src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"
-        ></script>
-        <script
-            defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"
-        ></script>
-        <script defer src="javascript/recettes.js"></script>
+        <script defer src="javascript/listeCoursePDF.js"></script>
+        <script defer src="javascript/courses.js"></script>
+        <script defer src="javascript/favoris.js"></script>
         <script defer src="javascript/head-foot.js"></script>
         <script defer src="javascript/recettes.js"></script>
-        <script defer src="javascript/favoris.js"></script>
-        <script defer src="javascript/recetteAleatoire.js"></script>
-        <script defer src="javascript/courses.js"></script>
-        <script defer src="javascript/listeCoursePDF.js"></script>
     </head>
     <body>
         <header>
@@ -232,230 +211,40 @@
                 </div>
             </nav>
         </header>
-        <main>
-            <img src="assets/background.jpg" alt="" class="background" />
-            <section class="background-element">
-                <section class="titre-btn">
-                    <h2 class="titre">Recettes aléatoires</h2>
-                    <i id="recharger" class="small material-icons">cached</i>
-                </section>
-            </section>
 
-            <section class="container section-recettes">
-                <div class="card recettes" style="width: 18rem">
-                    <div
-                        class="card-img-top activator img-recettes"
-                        alt="Image description"
-                        id="img-recette1"
-                    ></div>
-                    <div class="card-body">
-                        <h5 class="card-title nom-aleatoire-un"></h5>
-                        <button
-                            id="add-bouton1"
-                            class="bouton-favoris btn btn-danger"
+        <main style="margin-bottom: 150px;">
+            <section class="repas3"></section>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="recettes2.html"
+                            id="btn_prev"
                         >
-                            <i class="small material-icons right" id="logo-fav1"
-                                >favorite_border</i
-                            >
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal1"
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="recettes1.html" id="1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="recettes2.html" id="2">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="recettes3.html" id="3">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="recettes3.html"
+                            id="btn_next"
                         >
-                            details recette
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModal1"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel1"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5
-                                    class="modal-title nom-aleatoire-un"
-                                    id="exampleModalLabel1"
-                                >
-                                    Modal title
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div
-                                    id="ingredients-un"
-                                    class="para-ingredient"
-                                ></div>
-                                <div id="etapes1"></div>
-                                <div id="duree1"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Quitter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card recettes" style="width: 18rem">
-                    <div
-                        class="card-img-top activator img-recettes"
-                        alt="Image description"
-                        id="img-recette2"
-                    ></div>
-                    <div class="card-body">
-                        <h5 class="card-title nom-aleatoire-deux"></h5>
-                        <button
-                            id="add-bouton2"
-                            class="bouton-favoris btn btn-danger"
-                        >
-                            <i class="small material-icons right" id="logo-fav2"
-                                >favorite_border</i
-                            >
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal2"
-                        >
-                            details recette
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModal2"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel2"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5
-                                    class="modal-title nom-aleatoire-deux"
-                                    id="exampleModalLabel2"
-                                >
-                                    Modal title
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div
-                                    id="ingredients-deux"
-                                    class="para-ingredient"
-                                ></div>
-                                <div id="etapes2"></div>
-                                <div id="duree2"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Quitter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card recettes" style="width: 18rem">
-                    <div
-                        class="card-img-top activator img-recettes"
-                        alt="Image description"
-                        id="img-recette3"
-                    ></div>
-                    <div class="card-body">
-                        <h5 class="card-title nom-aleatoire-trois"></h5>
-                        <button
-                            id="add-bouton3"
-                            class="bouton-favoris btn btn-danger"
-                        >
-                            <i class="small material-icons right" id="logo-fav3"
-                                >favorite_border</i
-                            >
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal3"
-                        >
-                            details recette
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModal3"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel3"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5
-                                    class="modal-title nom-aleatoire-trois"
-                                    id="exampleModalLabel2"
-                                >
-                                    Modal title
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div
-                                    id="ingredients-trois"
-                                    class="para-ingredient"
-                                ></div>
-                                <div id="etapes3"></div>
-                                <div id="duree3"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Quitter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </main>
         <footer
             class="text-center text-white fixed-bottom"

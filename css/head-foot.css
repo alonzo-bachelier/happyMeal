@@ -1,0 +1,33 @@
+.autocomplete {
+    position: absolute;
+    top: 100%;
+    right: 0%;
+    z-index: 1000; /* Assure que les suggestions restent au-dessus du contenu */
+    max-width: 300px;
+    width: auto; /* Largeur correspondante à la barre de recherche */
+    background-color: #a4bfa1;
+    border: 1px solid #ccc;
+    border: none;
+    max-height: 450px; /* Hauteur maximale des suggestions pour éviter un débordement */
+
+    overflow-y: auto; /* Défilement vertical si nécessaire */
+}
+
+/* STYLE LIENS POUR LES NAV */
+
+.custom-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    color: #ffffffc5;
+    text-decoration: underline;
+}
+footer *:hover {
+    background: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+header {
+    user-select: none;
+}
